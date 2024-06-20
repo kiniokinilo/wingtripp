@@ -4,3 +4,6 @@ xhtml2pdf
 tqdm
 gunicorn
 whitenoise
+idna
+Django
+dj-database-url
