@@ -1,0 +1,97 @@
+<!-- flight/profile.html -->
+{% extends "flight/layout.html" %}
+
+{% block title %}
+    Profile | Flight Booking
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row">
+        <!-- Left Side - Display User Information -->
+        <div class="col-md-6">
+            <div class="user-box">
+                <div class="text-center">
+                    <h3>User Information</h3>
+                </div>
+                <div class="current-details">
+                    <p><strong>Username:</strong> {{ user.username }}</p>
+                    <p><strong>First Name:</strong> {{ user.first_name }}</p>
+                    <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+                    <p><strong>Email:</strong> {{ user.email }}</p>
+                </div>
+            </div>
+        </div>
+        <!-- Right Side - Edit User Information and Change Password -->
+        <div class="col-md-6">
+            <div class="user-box">
+                <div class="text-center">
+                    <h3>Edit Information</h3>
+                </div>
+                <form method="post" class="profile-form">
+                    {% csrf_token %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <div class="form-group">
+                        <label for="id_username">Username:</label>
+                        <input id="id_username" class="form-control inp" type="text" name="username" value="{{ user.username }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_first_name">First Name:</label>
+                        <input id="id_first_name" class="form-control inp" type="text" name="first_name" value="{{ user.first_name }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="id_last_name">Last Name:</label>
+                        <input id="id_last_name" class="form-control inp" type="text" name="last_name" value="{{ user.last_name }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="id_email">Email:</label>
+                        <input id="id_email" class="form-control inp" type="email" name="email" value="{{ user.email }}">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" name="update_profile" class="btn btn-danger btn-update-profile">Update Profile</button>
+                    </div>
+                </form>
+
+                <hr>
+
+                <div class="text-center">
+                    <h3>Change Password</h3>
+                </div>
+                <form method="post">
+                    {% csrf_token %}
+                    {% if form.errors %}
+                        <div class="alert alert-danger">
+                            {% for field, errors in form.errors.items %}
+                                {% for error in errors %}
+                                    <p>{{ field.capitalize }}: {{ error }}</p>
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <div class="form-group">
+                        <label for="id_old_password">Current Password:</label>
+                        <input id="id_old_password" class="form-control inp" type="password" name="old_password" autocomplete="current-password">
+                    </div>
+                    <div class="form-group">
+                        <label for="id_new_password1">New Password:</label>
+                        <input id="id_new_password1" class="form-control inp" type="password" name="new_password1" autocomplete="new-password">
+                    </div>
+                    <div class="form-group">
+                        <label for="id_new_password2">Confirm New Password:</label>
+                        <input id="id_new_password2" class="form-control inp" type="password" name="new_password2" autocomplete="new-password">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" name="change_password" class="btn btn-danger">Change Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

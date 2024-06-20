@@ -1,0 +1,126 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.typekit.net/cav5lva.css">
+  <link rel="stylesheet" href="{% static 'css/layout_style.css' %}">
+  <link rel="icon" type="image/ico" href="/static/img/favicon.ico">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="{% static 'js/layout.js' %}"></script>
+  {% block head %}
+  {% endblock %}
+</head>
+<body>
+  {% block parentBody %}
+  {% endblock %}
+  <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            {% if not user.is_authenticated %}
+            <li class="nav-item">
+                <button class="btn btn-outline-danger" style="border-radius: 25rem;" onclick="window.location.href = '/login';">
+                    <svg width="1.1em" height="1.1em" viewBox="0 1.5 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                    </svg>
+                    Login
+                </button>
+            </li>
+            {% else %}
+            <li class="nav-item dropdown my-account">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    My Account
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <div class="dropdown-header" style="display: flex; padding: .5rem 1.2rem">
+                        <div>
+                            <svg width="1.5em" height="1.7em" viewBox="0 1 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
+                                <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
+                            </svg>
+                        </div>
+                        <div style="margin-left: 7%;">
+                            {{user.first_name}} {{user.last_name}}
+                        </div>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{%  url 'profile' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+</svg>
+                    Profile</a>
+                    <a class="dropdown-item" href="{% url 'logout' %}">
+                        <svg width="1.1em" height="1.1em" viewBox="0 1.5 16 16" class="bi bi-power" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M5.578 4.437a5 5 0 1 0 4.922.044l.5-.866a6 6 0 1 1-5.908-.053l.486.875z"/>
+                            <path fill-rule="evenodd" d="M7.5 8V1h1v7h-1z"/>
+                        </svg>
+                        Logout
+                    </a>
+                
+{#                    <a class="dropdown-item" href="#" id="changePasswordLink">Change Password</a>#}
+                </div>
+            </li>
+            {% endif %}
+            <li class="nav-item {% if not page %}active{% endif %}">
+                <a class="nav-link" href="{% url 'index' %}">
+                    Home</a>
+            </li>
+            <li class="nav-item {% if page == 'bookings' %}active{% endif %}">
+                <a class="nav-link" href="{% url 'bookings' %}">My Bookings</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Logo on the right side -->
+    <a class="navbar-brand ml-auto" href="{% url 'index' %}">
+         
+        <img src="{% static 'img/destination2.png' %}" height="25" alt="logo">
+        <img src="{% static 'img/wintrip.png' %}" height="34" alt="logo">
+    </a>
+</nav>
+
+
+    <main>
+      {% block body %}{% endblock %}
+    </main>
+
+   <footer style="background-color: #f8f8f8; padding: 20px 0; font-family: Arial, sans-serif; color: #333;">
+  <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+    <div style="flex: 1 1 300px; margin-right: 20px; text-align: center;">
+      <img src="{% static 'img/Remove-bg.ai_1718806525900.png' %}" alt="logo" style="max-width: 100px; height: auto;">
+      <ul style="list-style-type: none; padding: 0; margin-top: 10px;">
+        <li style="margin-bottom: 5px;"><a href="{%  url 'contact' %}" style="text-decoration: none; color: #333;">Contact Us</a></li>
+        <li style="margin-bottom: 5px;"><a href="#" style="text-decoration: none; color: #333;">About Us</a></li>
+        <li style="margin-bottom: 5px;"><a href="#" style="text-decoration: none; color: #333;">Privacy Policy</a></li>
+        <li><a href="#" style="text-decoration: none; color: #333;">Terms &amp; Conditions</a></li>
+      </ul>
+    </div>
+    <div style="flex: 1 1 300px; margin-left: 20px; text-align: center;">
+      <div style="display: flex; justify-content: center;">
+        <a href="#" style="margin-right: 10px; text-decoration: none; color: #333;"><svg width="20" height="20" viewBox="0 0 8 16" xmlns="http://www.w3.org/2000/svg"><path fill="#1A1A1A" d="m2 5.33333333h-2v2.66666667h2v8h3.33333333v-8h2.428l.23866667-2.66666667h-2.66666667v-1.11133333c0-.63666667.128-.88866667.74333334-.88866667h1.92333333v-3.00133333h-2.436c-2.926 0-4.26733333 1.31666667-4.26733333 3.76v2.24133333z" /></svg></a>
+        <a href="#" style="margin-right: 10px; text-decoration: none; color: #333;"><svg width="22" height="22" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><g fill="#1A1A1A"><path d="m8 3c-2.76142375 0-5 2.23857625-5 5s2.23857625 5 5 5 5-2.23857625 5-5-2.23857625-5-5-5zm0 8.25c-1.79492872 0-3.25-1.4550713-3.25-3.25s1.45507128-3.25 3.25-3.25 3.25 1.45507128 3.25 3.25-1.45507128 3.25-3.25 3.25zm5.2-8.906c-.644 0-1.167.523-1.167 1.167s.523 1.167 1.167 1.167 1.167-.523 1.167-1.167-.523-1.167-1.167-1.167z" /><circle cx="8" cy="8" r="2" /></g></svg></a>
+        <a href="#" style="text-decoration: none; color: #333;"><svg width="20" height="20" viewBox="0 0 20 16" xmlns="http://www.w3.org/2000/svg"><path fill="#1A1A1A" d="m20 2.38033333c-.735.326-1.5246667.543-2.3536667.642.8456667-.507 1.494-1.308 1.8-2.26566667-.791.467-1.67.80766667-2.605 1-.75-.799-1.816-1.29466667-2.9983333-1.29466667-2.2696667 0-4.1003333 2.06033334-3.5646667 4.36733334-3.328-.16666667-6.27666667-1.76066667-8.25-4.185-.964 1.65133333-.48 3.813 1.14633334 4.9-.665-.02066667-1.28733334-.20466667-1.83-.51133334-.04666667 1.65133334 1.13266666 3.21733334 2.82666666 3.56733334-.662.1813333-1.375.22-2.076.08.58533334 1.746 2.274 3.016 4.28133334 3.05-1.54766667 1.295-3.51566667 1.885-5.49566667 1.619 1.607 1.0286667 3.51666667 1.537 5.41666667 1.537 6.56 0 10.68-5.7606667 10.458-10.925.72-.514 1.345-1.16 1.84-1.88z" /></svg></a>
+      </div>
+    </div>
+    <div style="flex: 1 1 100%; text-align: center; margin-top: 20px;">
+      <hr style="border-top: 1px solid #ddd; margin: 20px 0;">
+      <div style="font-size: 14px; color: #666;">&copy; 2024 WingTrip. All rights reserved.</div>
+    </div>
+  </div>
+</footer>
+
+  </div>
+</body>
+</html>
