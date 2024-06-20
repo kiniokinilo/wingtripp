@@ -7,3 +7,4 @@ whitenoise
 idna
 Django
 dj-database-url
+django-heroku
