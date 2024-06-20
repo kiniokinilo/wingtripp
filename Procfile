@@ -1,1 +1,1 @@
-web: gunicorn wingtrip.wsgi
+web: gunicorn project.wsgi
