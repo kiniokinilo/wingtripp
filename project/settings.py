@@ -30,7 +30,7 @@ SECRET_KEY = '=k3z-^1ov_hy5y%ebw(2e-npk@$#!(c8ix=+7so*hmw9m0c52*'
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'flight-179e9a98ed34.herokuapp.com/',
+    'flight-179e9a98ed34.herokuapp.com',
 ]
 
 
@@ -130,7 +130,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 django_heroku.settings(locals())
 # WhiteNoise configuration for serving static files
-STATICFILES_DIRS = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 
 AUTH_USER_MODEL = 'flight.User'
