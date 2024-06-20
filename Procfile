@@ -1,1 +1,1 @@
-web: gunicorn trip.wsgi
+web: gunicorn wingtrip.wsgi
